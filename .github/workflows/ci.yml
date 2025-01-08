@@ -40,6 +40,8 @@ jobs:
       # 1. Checkout kodu
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # 2. Automatyczne mergowanie do main
       - name: Merge develop into main
@@ -50,3 +52,6 @@ jobs:
           git checkout main
           git merge develop --allow-unrelated-histories || echo "No conflicts"
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
