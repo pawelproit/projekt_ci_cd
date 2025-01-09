@@ -33,7 +33,7 @@ jobs:
 
   clean-and-merge-main-py:
     needs: test
-    if: ${{ success() }} # Wykonuje się tylko, jeśli testy zakończą się sukcesem
+    if: ${{ success() }}
     runs-on: ubuntu-latest
 
     steps:
@@ -49,13 +49,19 @@ jobs:
           git fetch origin main
           git checkout main
 
-      # 3. Usunięcie wszystkich plików na branchu main
+      # 3. Ustawienie autora zmian
+      - name: Set author identity
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # 4. Usunięcie wszystkich plików na branchu main
       - name: Remove all files from main
         run: |
           git rm -rf . # Usuwa wszystkie pliki z branchu main
           git commit -m "Cleaned main branch" || echo "Nothing to clean"
 
-      # 4. Skopiowanie pliku `main.py` z develop
+      # 5. Skopiowanie pliku `main.py` z develop
       - name: Copy main.py from develop
         run: |
           git fetch origin develop
