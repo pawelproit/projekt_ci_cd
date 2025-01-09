@@ -1,6 +1,6 @@
-from main import add
+from main import substr
 
-def test_add():
-    assert add(2, 3) == 5
-    assert add(-1, 1) == 0
-    assert add(0, 0) == 0
+def test_substr():
+    assert substr(2, 3) == -1
+    assert substr(-1, 1) == -2
+    assert substr(0, 0) == 0
