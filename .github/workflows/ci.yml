@@ -31,9 +31,9 @@ jobs:
         run: |
           pytest --maxfail=5 --disable-warnings
 
-  merge:
+  clean-and-merge-main-py:
     needs: test
-    if: ${{ success() }}
+    if: ${{ success() }} # Wykonuje się tylko, jeśli testy zakończą się sukcesem
     runs-on: ubuntu-latest
 
     steps:
@@ -43,15 +43,25 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Automatyczne mergowanie do main
-      - name: Merge develop into main
+      # 2. Przejście na branch `main`
+      - name: Checkout main branch
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
           git fetch origin main
           git checkout main
-          git merge develop --allow-unrelated-histories || echo "No conflicts"
+
+      # 3. Usunięcie wszystkich plików na branchu main
+      - name: Remove all files from main
+        run: |
+          git rm -rf . # Usuwa wszystkie pliki z branchu main
+          git commit -m "Cleaned main branch" || echo "Nothing to clean"
+
+      # 4. Skopiowanie pliku `main.py` z develop
+      - name: Copy main.py from develop
+        run: |
+          git fetch origin develop
+          git checkout develop -- main.py # Pobiera tylko plik main.py z develop
+          git add main.py
+          git commit -m "Automatyczny merge main.py z develop do main"
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
