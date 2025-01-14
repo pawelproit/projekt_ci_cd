@@ -1,7 +1,7 @@
-def substr(a, b):
-    return a * b
+def multiply(n, m):
+  return n * m
 
-if __name__ == "__main__":
-    print("2 - 3 =", substr(2, 3))
-
-# Nowa zmiana
+def silnia(n):
+  if n > 1:
+    return multiply(n, silnia(n - 1))
+  return 1
