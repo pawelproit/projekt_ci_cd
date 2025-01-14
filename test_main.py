@@ -1,7 +1,7 @@
-from main import substr
+from main import multiply, factorial
 
 def test_substr():
-    assert substr(2, 3) == -1
-    assert substr(-1, 1) == -2
-    assert substr(0, 0) == 0
-    assert substr(2, 4) == -2
+    assert factorial(5) == 120
+    assert factorial(10) == 3628800
+    assert factorial(12) == 479001600
+    assert factorial(0) == 1
