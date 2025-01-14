@@ -1,7 +1,7 @@
 def multiply(n, m):
   return n * m
 
-def silnia(n):
+def factorial(n):
   if n > 1:
-    return multiply(n, silnia(n - 1))
+    return multiply(n, factorial(n - 1))
   return 1
