@@ -56,7 +56,7 @@ jobs:
       - name: Copy main.py from develop
         run: |
           git fetch origin develop
-          git checkout develop -- main.py # Pobiera tylko plik main.py z develop
+          git checkout develop -- main.py 
           git add main.py
           git commit -m "Automatyczny merge main.py z develop do main"
           git push origin main
