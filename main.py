@@ -1,5 +1,5 @@
 def multiply(n, m):
-  return n * m
+  return n + m
 
 def factorial(n):
   if n > 1:
